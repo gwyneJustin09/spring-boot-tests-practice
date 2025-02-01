@@ -1,0 +1,34 @@
+services:
+  psql-db:
+    container_name: psql-db
+    image: postgres
+    ports:
+      - "1977:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: unit_test
+    volumes:
+      - psql-vol:/var/lib/postgresql/data
+    networks:
+      - unit-test-network
+
+  unit-test:
+    container_name: unit-test-practice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1234:8080"
+    networks:
+      - unit-test-network
+    depends_on:
+      - psql-db
+
+volumes:
+  psql-vol:
+    driver: local
+
+networks:
+  unit-test-network:
+    driver: bridge

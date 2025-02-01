@@ -1,0 +1,12 @@
+server:
+  servlet:
+    context-path: /api/v1
+spring:
+  datasource:
+    url: jdbc:postgresql://psql-db:5432/unit_test
+    username: postgres
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
